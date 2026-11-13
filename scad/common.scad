@@ -7,7 +7,7 @@ eps = 0.01;
 page_t     = 16;    // stacking pitch: one tray, floor to floor
 plate_t    = 3;     // tray floor
 clear_z    = 0.8;   // air gap between trays (walls stop this short of the next floor)
-tray       = 176;   // trays are square; fits a 220 mm bed with room to spare
+tray       = 188;   // trays are square; fits a 220 mm bed with room to spare
 corner_r   = 12;
 
 // --- spine ------------------------------------------------------------------
@@ -21,13 +21,14 @@ boss_d     = 16;    // centre core of each tray = spacer, carries the rod (rod h
 // --- lanes: 9 equal lanes across the tray, the middle one bends round the core ------
 lanes_n    = 9;
 lane_wall  = 2;     // divider between lanes
-lane_w     = (tray - lane_wall * (lanes_n + 1)) / lanes_n;   // inside width: the same for every lane (17.3 at tray 176)
+lane_w     = (tray - lane_wall * (lanes_n + 1)) / lanes_n;   // inside width: the same for every lane (18.7 at tray 188)
 lane_p     = lane_w + lane_wall;
 core_lane  = (lanes_n - 1) / 2;   // the lane the core sits in
 core_gap   = 3;     // cable room all round the core, inside its lane's bulge
-front_wall = 14;    // front face: solid, so each lane has a marker hole and a label recess
-cross_y    = 134;   // cross wall: the coil lies in front of it, the plug sits behind it
 back_wall  = 4;
+front_wall = 14;    // front face: solid, so each lane has a marker hole and a label recess
+pocket_d   = 30;    // plug pocket depth (along the lane)
+cross_y    = tray - back_wall - pocket_d - lane_wall;   // back cross wall: the plug pocket sits behind it
 conn_w     = lane_w;  // coupon tests this
 
 // cable hole through the cross wall: a sideways pill (two circles side by side, joined)
