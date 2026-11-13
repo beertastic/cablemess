@@ -16,20 +16,24 @@ rod_fit    = 0.4;   // hole = rod_d + rod_fit
 nut_af     = 13;    // M8 nut across flats
 nut_t      = 6.8;   // M8 nut thickness (+ a little)
 nut_fit    = 0.4;
-boss_d     = 18;    // centre boss = tray spacer, carries the rod (thin: rod hole + 4.8 mm wall); cables coil round it
+boss_d     = 16;    // centre core of each tray = spacer, carries the rod (rod hole + 3.8 mm wall)
 
-// --- lanes: 8 per tray, 4 each side of the spine ------------------------------
-lanes_side = 4;
-lane_w     = 16;    // inside width of a lane = plug pocket width. Test with the coupon.
+// --- lanes: 9 equal lanes across the tray, the middle one bends round the core ------
+lanes_n    = 9;
 lane_wall  = 2;     // divider between lanes
+lane_w     = (tray - lane_wall * (lanes_n + 1)) / lanes_n;   // inside width: the same for every lane (17.3 at tray 176)
+lane_p     = lane_w + lane_wall;
+core_lane  = (lanes_n - 1) / 2;   // the lane the core sits in
+core_gap   = 3;     // cable room all round the core, inside its lane's bulge
 front_wall = 14;    // front face: solid, so each lane has a marker hole and a label recess
 cross_y    = 134;   // cross wall: the coil lies in front of it, the plug sits behind it
 back_wall  = 4;
 conn_w     = lane_w;  // coupon tests this
-neck_w     = 14;    // cable hole through the cross wall: a rounded rectangle, room for both strands of a cable
-spine_neck_w = 22;  // same, for the wide spine lane (both plugs of a short cable sit in its pocket)
+
+// cable hole through the cross wall: a sideways pill (two circles side by side, joined)
+neck_w     = 15;
 neck_h     = 9;
-neck_r     = 3;     // corner radius of the hole (neck_h / 2 would be a full oval)
+neck_r     = neck_h / 2;
 
 // --- length / colour marker (front face, one per lane) ----------------------------
 pin_d      = 4;     // marker pin shaft

@@ -1,26 +1,21 @@
-// One tray holds 8 cables, 4 lanes either side of the central spine (boss + rod). Each cable is coiled flat
-// in its lane, its plug sits behind the cross wall (cable leaves through the neck), and a marker pin in the
-// front face of the lane shows its length or type.
+// One tray holds 9 cables in 9 equal lanes. Each cable is coiled flat in its lane, its plug sits behind the cross
+// wall (the cable passes through a pill-shaped hole), and a marker pin in the front face shows its length or type.
+// The middle lane has the rod core in it: its coil area bulges round the core, and the neighbouring lanes give way.
 include <common.scad>
 
-wall_h  = page_t - clear_z;
-lane_p  = lane_w + lane_wall;
-spine_x = lane_wall + lane_p * lanes_side;
-spine_w = tray - 2 * spine_x;
+wall_h = page_t - clear_z;
+bulge_r = boss_d / 2 + core_gap;
 
-// one lane: coil area in front, plug pocket behind the cross wall, a rounded-rectangle hole between them
-// (two circles side by side, squared off) that the cable passes through
-module lane(x, w, nw) {
-  translate([x, front_wall, plate_t]) cube([w, cross_y - front_wall, wall_h]);
-  translate([x, cross_y + lane_wall, plate_t]) cube([w, tray - back_wall - cross_y - lane_wall, wall_h]);
-  translate([x + w / 2, cross_y + lane_wall + 1, plate_t + neck_h / 2 + 0.6]) rotate([90, 0, 0])
-    linear_extrude(lane_wall + 2) offset(r = neck_r) square([nw - 2 * neck_r, neck_h - 2 * neck_r], center = true);
+function lane_x(i) = lane_wall + lane_p * i;
+
+// one lane: coil area in front, plug pocket behind the cross wall, a pill-shaped hole between them
+module lane(i) {
+  x = lane_x(i);
+  translate([x, front_wall, plate_t]) cube([lane_w, cross_y - front_wall, wall_h]);
+  translate([x, cross_y + lane_wall, plate_t]) cube([lane_w, tray - back_wall - cross_y - lane_wall, wall_h]);
+  translate([x + lane_w / 2, cross_y + lane_wall + 1, plate_t + neck_h / 2 + 0.6]) rotate([90, 0, 0])
+    linear_extrude(lane_wall + 2) offset(r = neck_r) square([neck_w - 2 * neck_r, neck_h - 2 * neck_r], center = true);
 }
-
-// x of the left edge of lane i (0..7, left to right)
-function lane_x(i) = i < lanes_side
-  ? lane_wall + lane_p * i
-  : tray - lane_wall - lane_w - lane_p * (2 * lanes_side - 1 - i);
 
 module tray_part() {
   difference() {
@@ -29,20 +24,30 @@ module tray_part() {
       intersection() {
         linear_extrude(wall_h) outline();
         difference() {
-          cube([tray, tray, wall_h]);
-          // lane cavities: coil area, then plug pocket behind the cross wall
-          for (i = [0 : 2 * lanes_side - 1])
-            lane(lane_x(i), lane_w, neck_w);
-          // the spine is a wide lane for short cables, coiled round the boss; both plugs share its pocket
-          lane(spine_x, spine_w, spine_neck_w);
+          union() {
+            difference() {
+              cube([tray, tray, wall_h]);
+              for (i = [0 : lanes_n - 1]) lane(i);
+              translate([mid, mid, plate_t]) cylinder(r = bulge_r, h = wall_h);
+            }
+            // ring wall round the bulge keeps the neighbouring lanes separate
+            translate([mid, mid, 0]) difference() {
+              cylinder(r = bulge_r + lane_wall, h = wall_h);
+              translate([0, 0, -1]) cylinder(r = bulge_r, h = wall_h + 2);
+            }
+          }
+          // the core lane itself stays open through the ring
+          translate([lane_x(core_lane), front_wall, plate_t]) cube([lane_w, cross_y - front_wall, wall_h]);
+          translate([mid, mid, plate_t]) cylinder(r = bulge_r, h = wall_h);
         }
       }
-      // centre boss: spaces the trays and carries the rod
+      // the core: spaces the trays and carries the rod
       translate([mid, mid, 0]) cylinder(d = boss_d, h = page_t);
     }
     translate([mid, mid, -1]) cylinder(d = rod_d + rod_fit, h = page_t + 2);
     // marker hole and label recess on the front face of every lane
-    for (cx = concat([for (i = [0 : 2 * lanes_side - 1]) lane_x(i) + lane_w / 2], [mid])) {
+    for (i = [0 : lanes_n - 1]) {
+      cx = lane_x(i) + lane_w / 2;
       translate([cx, -eps, 7]) rotate([-90, 0, 0]) cylinder(d = pin_d + pin_fit, h = front_wall - 2);
       translate([cx - label_w / 2, -eps, 10.6]) cube([label_w, 0.8 + eps, 3.4]);
     }

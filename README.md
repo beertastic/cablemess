@@ -1,18 +1,18 @@
 # cablemess
 
 A portable, modular **cable archive** for the box of spare and obscure cables: a tower of flat trays on one central
-rod, like a deck of cards you leaf through. Each tray holds **8 cables** in lanes, four either side of the spine, plus short cables in the wide spine lane round the thin centre core; each
+rod, like a deck of cards you leaf through. Each tray holds **9 cables** in 9 equal lanes; the middle lane bulges round the thin centre core; each
 cable is coiled flat in its lane with its plug in a pocket at the back, and a marker pin in the lane's front face says
 how long or what type it is. Carry it by the T-handle; it stands in a cupboard or under a desk.
 
-Status: **v2 design (8 cables per tray), nothing printed yet.** Print the coupon first and report back.
+Status: **v2 design (9 cables per tray), nothing printed yet.** Print the coupon first and report back.
 
 ## Parts (STLs in `stl/`, pictures in `preview/`)
 
 | Part | Count | Notes |
 |:---|---:|:---|
 | `coupon.stl` | 1 | **Print this first** (5 minutes). Finds the pin-hole, rod-hole and plug-slot sizes that fit your printer |
-| `tray.stl` | 1 per 8 cables | 176 x 176 x 16 mm. Fits a 220 mm bed, no supports |
+| `tray.stl` | 1 per 9 cables | 176 x 176 x 16 mm. Fits a 220 mm bed, no supports |
 | `base.stl` | 1 | Foot with a hex pocket for the lower M8 nut. Print in PETG, it carries the load |
 | `handle.stl` | 1 | T-handle with a hex pocket for the upper M8 nut. PETG, 100% infill on the stem |
 | `pin.stl` | 1 per cable | Marker for a lane. Print one colour per cable type |
@@ -24,11 +24,10 @@ lets you tighten the stack for carrying), four rubber feet if you like.
 
 - The centre **boss** of each tray is the spacer and carries the rod, so the tower is as tall as you stack it: more
   trays, longer rod, nothing else changes.
-- **Lanes:** 8 per tray, 16 mm wide, 4 each side of the spine. Coil the cable flat in the lane (about 0.5-1 m of
-  thin cable; thicker or longer cables need a single lane to themselves).
-- **Spine lane:** 28 mm wide, coiled round the 18 mm core, for short cables; both plugs share its pocket.
-- **Plugs** drop into the pocket at the back of the lane; the cable passes through a rounded-rectangle hole (14 x 9 mm) in the cross wall.
-  Pocket is 16 mm wide: fine for USB-A, USB-C, micro, Lightning, HDMI; wider plugs do not fit.
+- **Lanes:** 9 equal lanes per tray, 17.3 mm wide. Coil the cable flat in the lane (about 0.5-1 m of thin cable). The
+  middle lane bends round the 16 mm core, so it suits shorter cables.
+- **Plugs** drop into the pocket at the back of the lane; the cable passes through a pill-shaped hole (15 x 9 mm) in the
+  cross wall. Pocket is 17.3 mm wide: fine for USB-A, USB-C, micro, Lightning, HDMI; wider plugs do not fit.
 - **Marker:** a hole and a tape-label recess in the front face of each lane. A coloured pin = cable type or length.
 - **Finding one:** swing the trays above round the rod and the lanes show.
 
@@ -46,6 +45,6 @@ install). Pictures come from `preview.py`, a small standard-library renderer, be
 ## Open questions for the first print
 
 1. Does the stack turn freely with the nut snug, and hold still when carried?
-2. Is the 16 mm pocket right for your plugs (USB-A, HDMI)? One number: `lane_w`.
+2. Is the 16 mm pocket right for your plugs (USB-A, HDMI)? One number: `tray` (lane width follows).
 3. How much cable does a lane hold at 12 mm height? Taller trays are one number (`page_t`).
 4. Are the marker pins a firm push-fit, or loose?
