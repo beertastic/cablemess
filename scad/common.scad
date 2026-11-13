@@ -26,7 +26,7 @@ front_wall = 14;    // front face: solid, so each lane has a marker hole and a l
 cross_y    = 134;   // cross wall: the coil lies in front of it, the plug sits behind it
 back_wall  = 4;
 conn_w     = lane_w;  // coupon tests this
-neck_w     = 8;     // slot the cable leaves through, in the cross wall
+neck_w     = 13;    // U-shaped slot in the cross wall: room for both strands of a cable (lane_w - 3)
 
 // --- length / colour marker (front face, one per lane) ----------------------------
 pin_d      = 4;     // marker pin shaft

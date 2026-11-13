@@ -23,7 +23,11 @@ module tray_part() {
             translate([lane_x(i), front_wall, plate_t]) cube([lane_w, cross_y - front_wall, wall_h]);
             translate([lane_x(i), cross_y + lane_wall, plate_t]) cube([lane_w, tray - back_wall - cross_y - lane_wall, wall_h]);
             // neck: the cable passes through the cross wall
-            translate([lane_x(i) + (lane_w - neck_w) / 2, cross_y - 1, plate_t]) cube([neck_w, lane_wall + 2, wall_h]);
+            // (U-shaped so both strands of a folded cable sit in it side by side)
+            hull() {
+              translate([lane_x(i) + lane_w / 2, cross_y - 1, plate_t + neck_w / 2]) rotate([-90, 0, 0]) cylinder(d = neck_w, h = lane_wall + 2);
+              translate([lane_x(i) + (lane_w - neck_w) / 2, cross_y - 1, wall_h - eps]) cube([neck_w, lane_wall + 2, 2]);
+            }
           }
         }
       }
