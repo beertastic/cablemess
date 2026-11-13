@@ -25,6 +25,8 @@ lets you tighten the stack for carrying), four rubber feet if you like.
   trays, longer rod, nothing else changes.
 - **Lanes:** 9 equal lanes per tray, 18.7 mm wide, open from the front face to the back face. The middle lane bends
   round the 16 mm core, so it suits shorter cables.
+- **Elastic bands:** every divider has two small hooked posts (a 45 degree cap, no supports). Stretch a small elastic band
+  or hair elastic from one post to the next across the lane, over the cable, to hold the coil down. `hook_at` sets where.
 - **Cable ends:** a sideways pill-shaped hole (11 x 6.5 mm) in the front and back face of every lane lets the ends
   of a cable stick out. USB-C, micro and Lightning plugs pass through; USB-A and HDMI plugs stay in the lane.
   Label cables with tape or a cable tag.

@@ -29,6 +29,12 @@ back_wall  = 4;
 front_wall = 4;     // front face; every lane has a pill-shaped hole through it (and through the back wall)
 conn_w     = lane_w;  // coupon tests this
 
+// band hooks: a post with a 45 degree cap on every divider, at these fractions of the lane length. A small elastic
+// band (or hair elastic) stretches from one post to the next across the lane, over the cable.
+hook_at    = [0.2, 0.8];
+hook_d     = 5;     // post: 1.5 mm proud of the 2 mm divider on each side
+hook_flare = 1.5;   // cap is this much wider all round (45 degree cone, prints without support)
+
 // cable hole through the cross wall: a sideways pill (two circles side by side, joined)
 neck_w     = 11;
 neck_h     = 6.5;
