@@ -5,22 +5,25 @@
 // The middle lane has the rod core in it: its coil area bulges round the core, and the neighbouring lanes give way.
 include <common.scad>
 both_ends = false;
+mix       = false;   // true: mixed tray, short-cable lanes (plug pockets at both ends) alternating with long-cable lanes
+
+function is_both(i) = mix ? i % 2 == 0 : both_ends;
+function coil_y0(i) = is_both(i) ? front_wall + pocket_d + lane_wall : front_wall;
 
 wall_h = page_t - clear_z;
 bulge_r = boss_d / 2 + core_gap;
-coil_y0 = both_ends ? front_wall + pocket_d + lane_wall : front_wall;
 
 function lane_x(i) = lane_wall + lane_p * i;
 
 // one lane: coil area in front, plug pocket behind the cross wall, a pill-shaped hole between them
 module hole(x, y) translate([x + lane_w / 2, y, plate_t + neck_h / 2 + 0.6]) rotate([90, 0, 0])
-  linear_extrude(lane_wall + 2) offset(r = neck_r) square([neck_w - 2 * neck_r, neck_h - 2 * neck_r], center = true);
+  linear_extrude(lane_wall + 2) offset(r = neck_r) square([neck_w - 2 * neck_r, max(neck_h - 2 * neck_r, 0.01)], center = true);
 
 module lane(i) {
   x = lane_x(i);
-  coil_y0 = both_ends ? front_wall + pocket_d + lane_wall : front_wall;
-  translate([x, coil_y0, plate_t]) cube([lane_w, cross_y - coil_y0, wall_h]);
-  if (both_ends) {
+  y0 = coil_y0(i);
+  translate([x, y0, plate_t]) cube([lane_w, cross_y - y0, wall_h]);
+  if (is_both(i)) {
     translate([x, front_wall, plate_t]) cube([lane_w, pocket_d, wall_h]);
     hole(x, front_wall + pocket_d + lane_wall + 1);
   }
@@ -48,7 +51,7 @@ module tray_part() {
             }
           }
           // the core lane itself stays open through the ring
-          translate([lane_x(core_lane), coil_y0, plate_t]) cube([lane_w, cross_y - coil_y0, wall_h]);
+          translate([lane_x(core_lane), coil_y0(core_lane), plate_t]) cube([lane_w, cross_y - coil_y0(core_lane), wall_h]);
           translate([mid, mid, plate_t]) cylinder(r = bulge_r, h = wall_h);
         }
       }
