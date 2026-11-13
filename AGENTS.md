@@ -10,7 +10,7 @@ the first-print questions.
 - Rebuild with `./build.sh` (OpenSCAD in a container; the box's Docker daemon can't bind-mount folders, so sources are
   streamed in as tar and STLs streamed out). It also renders a picture of each part with `preview.py` into `preview/`:
   open the PNG with the Read tool to check a change. Commit `stl/` and `preview/` with the source so friends can download.
-- Tris reports how prints fit; adjust the numbers in `common.scad` (`pin_fit`, `rod_fit`, `conn_w`, `page_t`) rather
+- Tris reports how prints fit; adjust the numbers in `common.scad` (`rod_fit`, `neck_w`, `neck_h`, `page_t`) rather
   than the geometry, then rebuild and push.
 - Don't use `rm -rf` or shell patterns that delete (the harness holds them); use the Write/Edit tools.
 - Push to GitHub as soon as a change is checked (the box's rule).
