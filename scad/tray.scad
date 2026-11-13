@@ -1,50 +1,42 @@
-// One tray: the cable is folded in half and wound round the three posts (peg, centre boss, peg),
-// both plugs sit in the holders at the back, and a marker pin in the front face says how long it is.
+// One tray holds 8 cables, 4 lanes either side of the central spine (boss + rod). Each cable is coiled flat
+// in its lane, its plug sits behind the cross wall (cable leaves through the neck), and a marker pin in the
+// front face of the lane shows its length or type.
 include <common.scad>
 
-wall_h = page_t - clear_z;
+wall_h  = page_t - clear_z;
+lane_p  = lane_w + lane_wall;
+// x of the left edge of lane i (0..7, left to right)
+function lane_x(i) = i < lanes_side
+  ? lane_wall + lane_p * i
+  : tray - lane_wall - lane_w - lane_p * (2 * lanes_side - 1 - i);
 
 module tray_part() {
   difference() {
     union() {
       linear_extrude(plate_t) outline();
       intersection() {
-        linear_extrude(page_t) outline();
-        union() {
-          // front wall: the face you read in the closed stack, solid so the marker holes have somewhere to go
-          cube([tray, front_wall, wall_h]);
-          // holder blocks
-          for (s = [-1, 1]) translate([mid + s * holder_dx - holder_w / 2, holder_y, 0])
-            cube([holder_w, tray - holder_y, wall_h]);
+        linear_extrude(wall_h) outline();
+        difference() {
+          cube([tray, tray, wall_h]);
+          // lane cavities: coil area, then plug pocket behind the cross wall
+          for (i = [0 : 2 * lanes_side - 1]) {
+            translate([lane_x(i), front_wall, plate_t]) cube([lane_w, cross_y - front_wall, wall_h]);
+            translate([lane_x(i), cross_y + lane_wall, plate_t]) cube([lane_w, tray - back_wall - cross_y - lane_wall, wall_h]);
+            // neck: the cable passes through the cross wall
+            translate([lane_x(i) + (lane_w - neck_w) / 2, cross_y - 1, plate_t]) cube([neck_w, lane_wall + 2, wall_h]);
+          }
         }
       }
       // centre boss: spaces the trays and carries the rod
       translate([mid, mid, 0]) cylinder(d = boss_d, h = page_t);
-      // pegs with 45 degree caps
-      for (s = [-1, 1]) translate([mid + s * peg_dx, mid, 0]) {
-        cylinder(d = peg_d, h = wall_h);
-        translate([0, 0, wall_h - cap_flat - cap_cone])
-          cylinder(d1 = peg_d, d2 = peg_d + 2 * cap_flare, h = cap_cone);
-        translate([0, 0, wall_h - cap_flat]) cylinder(d = peg_d + 2 * cap_flare, h = cap_flat);
-      }
     }
-    // rod
     translate([mid, mid, -1]) cylinder(d = rod_d + rod_fit, h = page_t + 2);
-    // plug pockets and cable slots
-    for (s = [-1, 1]) {
-      translate([mid + s * holder_dx - conn_w / 2, holder_y + 9, plate_t]) cube([conn_w, tray, page_t]);
-      translate([mid + s * holder_dx - neck_w / 2, holder_y - 2, plate_t]) cube([neck_w, 14, page_t]);
+    // marker hole and label recess on the front face of every lane
+    for (i = [0 : 2 * lanes_side - 1]) {
+      cx = lane_x(i) + lane_w / 2;
+      translate([cx, -eps, 7]) rotate([-90, 0, 0]) cylinder(d = pin_d + pin_fit, h = front_wall - 2);
+      translate([cx - label_w / 2, -eps, 10.6]) cube([label_w, 0.8 + eps, 3.4]);
     }
-    // marker holes and 1 m / 2 m / 3 m numbers on the front face
-    for (i = [0 : mark_n - 1]) {
-      x = mark_x0 + i * mark_pitch;
-      translate([x, -eps, 8]) rotate([-90, 0, 0]) cylinder(d = pin_d + pin_fit, h = front_wall - 2);
-      if ((i + 1) * mark_cm % 100 == 0)
-        translate([x, 0.6, 13.2]) rotate([90, 0, 0]) linear_extrude(0.7)
-          text(str((i + 1) * mark_cm / 100, "m"), size = 3.2, halign = "center");
-    }
-    // sticker recess for a tape label (cable type)
-    translate([110, -eps, 3]) cube([34, 0.8 + eps, 13]);
   }
 }
 
