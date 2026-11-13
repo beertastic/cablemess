@@ -1,5 +1,5 @@
 // Tolerance coupon: print this first. Find the pin hole, rod hole and plug pocket that fit YOUR printer
-// and set pin_fit / rod_fit / conn_w in common.scad.
+// and set rod_fit / conn_w in common.scad.
 include <common.scad>
 module label(t) text(t, size = 2.6, halign = "center");
 difference() {

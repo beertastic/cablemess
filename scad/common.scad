@@ -26,7 +26,7 @@ lane_p     = lane_w + lane_wall;
 core_lane  = (lanes_n - 1) / 2;   // the lane the core sits in
 core_gap   = 3;     // cable room all round the core, inside its lane's bulge
 back_wall  = 4;
-front_wall = 14;    // front face: solid, so each lane has a marker hole and a label recess
+front_wall = 4;     // front face; every lane has a pill-shaped hole through it (and through the back wall)
 pocket_d   = 30;    // plug pocket depth (along the lane)
 cross_y    = tray - back_wall - pocket_d - lane_wall;   // back cross wall: the plug pocket sits behind it
 conn_w     = lane_w;  // coupon tests this
@@ -35,11 +35,6 @@ conn_w     = lane_w;  // coupon tests this
 neck_w     = 15;
 neck_h     = 9;
 neck_r     = neck_h / 2;
-
-// --- length / colour marker (front face, one per lane) ----------------------------
-pin_d      = 4;     // marker pin shaft
-pin_fit    = 0.3;   // hole = pin_d + pin_fit
-label_w    = 14;    // tape label recess per lane
 
 module outline(s = tray, r = corner_r) offset(r = r) offset(delta = -r) square(s);
 mid = tray / 2;
