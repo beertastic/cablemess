@@ -34,7 +34,7 @@ lets you tighten the stack for carrying), four rubber feet if you like.
 
 ## Look without printing
 
-`viewer/index.html` is a standalone 3D viewer of every part: download it and open it in a browser (needs internet
+`docs/index.html` is a standalone 3D viewer of every part: download it and open it in a browser (needs internet
 once, to load three.js). It shows the STLs as of its last rebuild, so `stl/` is the source of truth.
 
 ## Print settings (starting point)
