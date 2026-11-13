@@ -1,38 +1,25 @@
-// One tray holds 9 cables in 9 equal lanes. Each cable is coiled flat in its lane, its plug sits behind a cross
-// wall (the cable passes through a pill-shaped hole), and the cable ends poke out through pill-shaped holes in the front and back faces.
-// both_ends = false: LONG-cable tray, both plugs in the pocket at the back, cable coiled in front of it.
-// both_ends = true:  SHORT-cable tray, a plug pocket at each end of the lane, cable stretched or coiled between.
-// The middle lane has the rod core in it: its coil area bulges round the core, and the neighbouring lanes give way.
+// One tray holds 9 cables in 9 equal lanes that run the full depth of the tray. A cable lies coiled or stretched in its
+// lane and its ends poke out through the pill-shaped holes in the front and back faces.
+// The middle lane has the rod core in it: its area bulges round the core, and the neighbouring lanes give way.
 include <common.scad>
-both_ends = false;
-mix       = false;   // true: mixed tray, short-cable lanes (plug pockets at both ends) alternating with long-cable lanes
 
-function is_both(i) = mix ? i % 2 == 0 : both_ends;
-function coil_y0(i) = is_both(i) ? front_wall + pocket_d + lane_wall : front_wall;
-
-wall_h = page_t - clear_z;
+wall_h  = page_t - clear_z;
 bulge_r = boss_d / 2 + core_gap;
+lane_y0 = front_wall;
+lane_y1 = tray - back_wall;
 
 function lane_x(i) = lane_wall + lane_p * i;
 
-// one lane: coil area in front, plug pocket behind the cross wall, a pill-shaped hole between them
-// y_from..y_to along the lane
+// sideways pill (two circles side by side, joined), cut through a wall along y
 module hole(x, y_from, y_to) translate([x + lane_w / 2, y_to, plate_t + neck_h / 2 + 0.6]) rotate([90, 0, 0])
-  linear_extrude(y_to - y_from) offset(r = neck_r) square([neck_w - 2 * neck_r, max(neck_h - 2 * neck_r, 0.01)], center = true);
+  linear_extrude(y_to - y_from)
+    offset(r = neck_r) square([neck_w - 2 * neck_r, max(neck_h - 2 * neck_r, 0.01)], center = true);
 
 module lane(i) {
   x = lane_x(i);
-  y0 = coil_y0(i);
-  translate([x, y0, plate_t]) cube([lane_w, cross_y - y0, wall_h]);
-  if (is_both(i)) {
-    translate([x, front_wall, plate_t]) cube([lane_w, pocket_d, wall_h]);
-    hole(x, front_wall + pocket_d - 1, front_wall + pocket_d + lane_wall + 1);
-  }
-  translate([x, cross_y + lane_wall, plate_t]) cube([lane_w, tray - back_wall - cross_y - lane_wall, wall_h]);
-  hole(x, cross_y - 1, cross_y + lane_wall + 1);
-  // pill-shaped holes through the front and back faces: the cable ends poke out of them
+  translate([x, lane_y0, plate_t]) cube([lane_w, lane_y1 - lane_y0, wall_h]);
   hole(x, -1, front_wall + 1);
-  hole(x, tray - back_wall - 1, tray + 1);
+  hole(x, lane_y1 - 1, tray + 1);
 }
 
 module tray_part() {
@@ -55,7 +42,7 @@ module tray_part() {
             }
           }
           // the core lane itself stays open through the ring
-          translate([lane_x(core_lane), coil_y0(core_lane), plate_t]) cube([lane_w, cross_y - coil_y0(core_lane), wall_h]);
+          translate([lane_x(core_lane), lane_y0, plate_t]) cube([lane_w, lane_y1 - lane_y0, wall_h]);
           translate([mid, mid, plate_t]) cylinder(r = bulge_r, h = wall_h);
         }
       }

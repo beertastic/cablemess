@@ -27,8 +27,6 @@ core_lane  = (lanes_n - 1) / 2;   // the lane the core sits in
 core_gap   = 3;     // cable room all round the core, inside its lane's bulge
 back_wall  = 4;
 front_wall = 4;     // front face; every lane has a pill-shaped hole through it (and through the back wall)
-pocket_d   = 30;    // plug pocket depth (along the lane)
-cross_y    = tray - back_wall - pocket_d - lane_wall;   // back cross wall: the plug pocket sits behind it
 conn_w     = lane_w;  // coupon tests this
 
 // cable hole through the cross wall: a sideways pill (two circles side by side, joined)

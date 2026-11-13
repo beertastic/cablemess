@@ -6,6 +6,6 @@ color("slategray") translate([-5, -5, 0]) linear_extrude(base_t) outline(tray + 
 for (k = [0 : n - 1])
   color(k % 2 ? "lightsteelblue" : "lightskyblue")
     translate([mid, mid, base_t + k * page_t]) rotate([0, 0, [0, 0, 28, 28, 70][k]])
-      translate([-mid, -mid, 0]) import(k == 1 || k == 3 ? "../stl/tray_short.stl" : k == 2 ? "../stl/tray_mix.stl" : "../stl/tray.stl");
+      translate([-mid, -mid, 0]) import("../stl/tray.stl");
 color("silver") translate([mid, mid, 0]) cylinder(d = rod_d, h = base_t + n * page_t + 60);
 color("orange") translate([mid, mid, base_t + n * page_t]) import("../stl/handle.stl");

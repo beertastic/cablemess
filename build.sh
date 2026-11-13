@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 mkdir -p stl preview
 tar c scad | docker run -i --rm openscad/openscad:bookworm bash -c '
   mkdir -p /w/stl && cd /w && tar x
-  for p in tray tray_short tray_mix base handle coupon assembly; do openscad -q -o stl/$p.stl scad/$p.scad >&2; done
+  for p in tray base handle coupon assembly; do openscad -q -o stl/$p.stl scad/$p.scad >&2; done
   tar c stl' | tar x
-for p in tray tray_short tray_mix base handle coupon assembly; do python3 -I preview.py stl/$p.stl preview/$p.png; done
+for p in tray base handle coupon assembly; do python3 -I preview.py stl/$p.stl preview/$p.png; done
 ls stl preview
