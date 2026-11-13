@@ -27,9 +27,9 @@ lets you tighten the stack for carrying), four rubber feet if you like.
   trays, longer rod, nothing else changes.
 - **Lanes:** 9 equal lanes per tray, 18.7 mm wide. Coil the cable flat in the lane (long tray: about 0.5-1 m of thin cable; short tray: about 0.5 m, plugs at both ends). The
   middle lane bends round the 16 mm core, so it suits shorter cables.
-- **Plugs** drop into the pocket at the back of the lane; the cable passes through a pill-shaped hole (15 x 9 mm, a sideways pill) in the
+- **Plugs** drop into the pocket at the back of the lane; the cable passes through a pill-shaped hole (11 x 6.5 mm, a sideways pill) in the
   cross wall. Pocket is 18.7 mm wide: fine for USB-A, USB-C, micro, Lightning, HDMI; wider plugs do not fit.
-- **Cable ends:** a sideways pill-shaped hole (15 x 9 mm) in the front and back face of every lane lets both ends
+- **Cable ends:** a sideways pill-shaped hole (11 x 6.5 mm) in the front and back face of every lane lets both ends
   of a cable stick out. Label them with tape or a cable tag.
 - **Finding one:** swing the trays above round the rod and the lanes show.
 

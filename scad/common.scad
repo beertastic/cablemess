@@ -32,8 +32,8 @@ cross_y    = tray - back_wall - pocket_d - lane_wall;   // back cross wall: the 
 conn_w     = lane_w;  // coupon tests this
 
 // cable hole through the cross wall: a sideways pill (two circles side by side, joined)
-neck_w     = 15;
-neck_h     = 9;
+neck_w     = 11;
+neck_h     = 6.5;
 neck_r     = neck_h / 2;
 
 module outline(s = tray, r = corner_r) offset(r = r) offset(delta = -r) square(s);
