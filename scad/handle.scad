@@ -6,7 +6,7 @@ bar_w = 26;
 bar_t = 16;
 difference() {
   union() {
-    cylinder(d = 26, h = stem_h);
+    cylinder(d = boss_d, h = stem_h);
     translate([0, 0, stem_h]) hull() {
       for (s = [-1, 1]) translate([s * (bar_l - bar_w) / 2, 0, 0]) cylinder(d = bar_w, h = bar_t);
     }

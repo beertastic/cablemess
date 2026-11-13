@@ -1,7 +1,7 @@
 # cablemess
 
 A portable, modular **cable archive** for the box of spare and obscure cables: a tower of flat trays on one central
-rod, like a deck of cards you leaf through. Each tray holds **8 cables** in lanes, four either side of the spine; each
+rod, like a deck of cards you leaf through. Each tray holds **8 cables** in lanes, four either side of the spine, plus short cables in the wide spine lane round the thin centre core; each
 cable is coiled flat in its lane with its plug in a pocket at the back, and a marker pin in the lane's front face says
 how long or what type it is. Carry it by the T-handle; it stands in a cupboard or under a desk.
 
@@ -26,7 +26,8 @@ lets you tighten the stack for carrying), four rubber feet if you like.
   trays, longer rod, nothing else changes.
 - **Lanes:** 8 per tray, 16 mm wide, 4 each side of the spine. Coil the cable flat in the lane (about 0.5-1 m of
   thin cable; thicker or longer cables need a single lane to themselves).
-- **Plugs** drop into the pocket at the back of the lane; the cable leaves through the 8 mm neck in the cross wall.
+- **Spine lane:** 28 mm wide, coiled round the 18 mm core, for short cables; both plugs share its pocket.
+- **Plugs** drop into the pocket at the back of the lane; the cable passes through a rounded-rectangle hole (14 x 9 mm) in the cross wall.
   Pocket is 16 mm wide: fine for USB-A, USB-C, micro, Lightning, HDMI; wider plugs do not fit.
 - **Marker:** a hole and a tape-label recess in the front face of each lane. A coloured pin = cable type or length.
 - **Finding one:** swing the trays above round the rod and the lanes show.
